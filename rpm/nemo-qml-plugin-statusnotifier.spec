@@ -36,6 +36,7 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %dir %{_libdir}/qt5/qml/org/nemomobile/statusnotifier
-%{_libdir}/qt5/qml/org/nemomobile/statusnotifier/libstatusnotifier.so
+%{_libdir}/qt5/qml/org/nemomobile/statusnotifier/libnemostatusnotifier.so
+%{_libdir}/libstatusnotifier.so
 %{_libdir}/qt5/qml/org/nemomobile/statusnotifier/qmldir
 %{_libdir}/qt5/qml/org/nemomobile/statusnotifier/plugins.qmltypes
