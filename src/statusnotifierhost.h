@@ -30,29 +30,28 @@
 #define STATUSNOTIFIERHOST_H
 
 #include <QObject>
-#include <QCoreApplication>
+#include <QHash>
 
-#include "statusnotifiericon.h"
-#include "statusnotifierwatcher.h"
-
+class StatusNotifierWatcher;
+class StatusNotifierIcon;
 class StatusNotifierHost : public QObject
 {
     Q_OBJECT
 public:
     explicit StatusNotifierHost(QObject *parent = 0);
+    QHash<QString, StatusNotifierIcon*> icons() const;
 
 private slots:
     void onItemAdded(const QString &serviceAndPath);
     void onItemRemoved(const QString &serviceAndPath);
 
 signals:
-    void itemAdded(StatusNotifierIcon* item);
-    void itemRemoved(StatusNotifierIcon* item);
+    void iconAdded(StatusNotifierIcon* icon);
+    void iconRemoved(StatusNotifierIcon* icon);
 
 private:
     StatusNotifierWatcher *m_watcher;
-
-    QHash<QString, StatusNotifierIcon*> m_services;
+    QHash<QString, StatusNotifierIcon*> m_icons;
 };
 
 #endif // STATUSNOTIFIERHOST_H

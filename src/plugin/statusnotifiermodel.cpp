@@ -6,8 +6,8 @@ StatusNotifierModel::StatusNotifierModel(QObject *parent)
 {
     m_roles[Qt::UserRole] = QByteArrayLiteral("notifierItem");
 
-    connect(m_host, &StatusNotifierHost::itemAdded, this, &StatusNotifierModel::onItemAdded);
-    connect(m_host, &StatusNotifierHost::itemRemoved, this, &StatusNotifierModel::onItemRemoved);
+    connect(m_host, &StatusNotifierHost::iconAdded, this, &StatusNotifierModel::onItemAdded);
+    connect(m_host, &StatusNotifierHost::iconRemoved, this, &StatusNotifierModel::onItemRemoved);
 }
 
 QVariant StatusNotifierModel::data(const QModelIndex &index, int) const

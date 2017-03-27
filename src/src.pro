@@ -1,38 +1,50 @@
-system(qdbusxml2cpp -c StatusNotifierItemInterface -p statusnotifieriteminterface -i dbustypes.h ../dbus/org.kde.StatusNotifierItem.xml)
-system(qdbusxml2cpp ../dbus/org.kde.StatusNotifierItem.xml -i statusnotifieritem.h -a statusnotifieritemadaptor)
-
+TEMPLATE = lib
 TARGET = statusnotifier
 
-QT += dbus qml
-QT -= gui
+CONFIG += qt create_pc create_prl no_install_prl c++11
+QT += qml dbus gui
 
-TEMPLATE = lib
+CONFIG += c++11 hide_symbols
 
-CONFIG += qt plugin hide_symbols c++11
-
-target.path = $$[QT_INSTALL_LIBS]
-INSTALLS += target
+system(qdbusxml2cpp -c StatusNotifierItemInterface -p statusnotifieriteminterface -i dbustypes.h ../dbus/org.kde.StatusNotifierItem.xml)
+system(qdbusxml2cpp ../dbus/org.kde.StatusNotifierItem.xml -i statusnotifieritem.h -a statusnotifieritemadaptor)
 
 SOURCES += \
     statusnotifieriteminterface.cpp \
     statusnotifieritemadaptor.cpp \
     dbustypes.cpp \
-    declarativestatusnotifieritem.cpp \
     sniasync.cpp \
     statusnotifierhost.cpp \
     statusnotifiericon.cpp \
     statusnotifieritem.cpp \
-    statusnotifiermodel.cpp \
     statusnotifierwatcher.cpp
 
-HEADERS += \
-    statusnotifieriteminterface.h \
-    statusnotifieritemadaptor.h \
+PUBLIC_HEADERS += \
     dbustypes.h \
-    declarativestatusnotifieritem.h \
-    sniasync.h \
     statusnotifierhost.h \
     statusnotifiericon.h \
-    statusnotifieritem.h \
-    statusnotifiermodel.h \
+    statusnotifieritem.h
+
+HEADERS += \
+    $$PUBLIC_HEADERS \
+    statusnotifieriteminterface.h \
+    statusnotifieritemadaptor.h \
+    sniasync.h \
     statusnotifierwatcher.h
+
+target.path = $$[QT_INSTALL_LIBS]
+
+develheaders.path = /usr/include/statusnotifier
+develheaders.files = $$PUBLIC_HEADERS
+
+pkgconfig.files = $$PWD/pkgconfig/statusnotifier.pc
+pkgconfig.path = $$target.path/pkgconfig
+
+QMAKE_PKGCONFIG_NAME = lib$$TARGET
+QMAKE_PKGCONFIG_DESCRIPTION = StatusNotifier development files
+QMAKE_PKGCONFIG_LIBDIR = $$target.path
+QMAKE_PKGCONFIG_INCDIR = $$develheaders.path
+QMAKE_PKGCONFIG_DESTDIR = pkgconfig
+QMAKE_PKGCONFIG_REQUIRES = Qt5Core Qt5DBus
+
+INSTALLS += target develheaders pkgconfig
