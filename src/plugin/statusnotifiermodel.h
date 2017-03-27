@@ -11,7 +11,7 @@ class StatusNotifierModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit StatusNotifierModel(QObject *parent = 0);
+    explicit StatusNotifierModel(QObject *parent = nullptr);
 
     int rowCount(const QModelIndex &) const { return m_modelData.count(); }
     QVariant data(const QModelIndex &index, int = Qt::UserRole) const;

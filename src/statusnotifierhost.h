@@ -38,7 +38,7 @@ class StatusNotifierHost : public QObject
 {
     Q_OBJECT
 public:
-    explicit StatusNotifierHost(QObject *parent = 0);
+    explicit StatusNotifierHost(QObject *parent = nullptr);
     QHash<QString, StatusNotifierIcon*> icons() const;
 
 private slots:
