@@ -21,7 +21,7 @@ class DeclarativeStatusNotifierItem : public QObject
     Q_PROPERTY(QString attentionIcon READ attentionIcon WRITE setAttentionIcon NOTIFY attentionIconChanged)
 
 public:
-    explicit DeclarativeStatusNotifierItem(QObject *parent = 0);
+    explicit DeclarativeStatusNotifierItem(QObject *parent = nullptr);
 
     enum Status
     {

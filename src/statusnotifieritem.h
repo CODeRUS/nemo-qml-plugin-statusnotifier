@@ -32,6 +32,8 @@
 #include <QObject>
 #include <QPoint>
 #include <QDBusConnection>
+#include <QPixmap>
+#include <QImage>
 
 #include "dbustypes.h"
 
@@ -43,17 +45,11 @@ class StatusNotifierItem : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString Title READ title)
-    Q_PROPERTY(QString Id READ id)
     Q_PROPERTY(QString Status READ status)
 
     Q_PROPERTY(QString IconName READ iconName)
     Q_PROPERTY(QString OverlayIconName READ overlayIconName)
     Q_PROPERTY(QString AttentionIconName READ attentionIconName)
-
-    Q_PROPERTY(int WindowId READ windowId)
-
-// NOT IMPLEMENTED
-    Q_PROPERTY(QDBusObjectPath Menu READ menu)
 
     Q_PROPERTY(IconPixmapList IconPixmap READ iconPixmap)
     Q_PROPERTY(IconPixmapList OverlayIconPixmap READ overlayIconPixmap)
@@ -61,70 +57,39 @@ class StatusNotifierItem : public QObject
 
     Q_PROPERTY(ToolTip ToolTip READ toolTip)
 
-    Q_PROPERTY(QString AttentionMovieName READ attentionMovieName)
-
-    Q_PROPERTY(QString Category READ category)
-
-    Q_PROPERTY(QString IconThemePath READ iconThemePath)
-
-    Q_PROPERTY(bool ItemIsMenu READ itemIsMenu)
 
 public:
-    StatusNotifierItem(QObject *parent = nullptr);
+    StatusNotifierItem(const QString &category, bool itemIsMenu, const QString &menuPath, QObject *parent = nullptr);
     ~StatusNotifierItem();
 
-    QString id() const
-    { return objectName(); }
-
-    QString title() const
-    { return m_title; }
+    QString title() const;
     void setTitle(const QString &title);
 
-    QString status() const
-    { return m_status; }
+    QString status() const;
     void setStatus(const QString &status);
 
-    QDBusObjectPath menu() const
-    { return m_menuPath; }
-
-    QString iconName() const
-    { return m_iconName; }
+    QString iconName() const;
     void setIconByName(const QString &name);
 
-    IconPixmapList iconPixmap() const
-    { return m_icon; }
+    IconPixmapList iconPixmap() const;
+    void setIconByPixmap(const QPixmap &icon);
+    void setIconByImage(const QImage &icon);
 
-    QString overlayIconName() const
-    { return m_overlayIconName; }
+    QString overlayIconName() const;
     void setOverlayIconByName(const QString &name);
 
-    IconPixmapList overlayIconPixmap() const
-    { return m_overlayIcon; }
+    IconPixmapList overlayIconPixmap() const;
+    void setOverlayIconByPixmap(const QPixmap &icon);
+    void setOverlayIconByImage(const QImage &icon);
 
-    QString attentionIconName() const
-    { return m_attentionIconName; }
+    QString attentionIconName() const;
     void setAttentionIconByName(const QString &name);
 
-    IconPixmapList attentionIconPixmap() const
-    { return m_attentionIcon; }
+    IconPixmapList attentionIconPixmap() const;
+    void setAttentionIconByPixmap(const QPixmap &icon);
+    void setAttentionIconByImage(const QImage &icon);
 
-    ToolTip toolTip() const
-    { return ToolTip(); }
-
-    QString attentionMovieName() const
-    { return QString(); }
-
-    QString category() const
-    { return QString(); }
-
-    QString iconThemePath() const
-    { return QString(); }
-
-    bool itemIsMenu() const
-    { return false; }
-
-    int windowId() const
-    { return m_serviceCounter; }
+    ToolTip toolTip() const;
 
 public slots:
     void Activate(int x, int y);
@@ -151,20 +116,10 @@ private:
     QString m_title;
     QString m_status;
 
-    // icons
     QString m_iconName, m_overlayIconName, m_attentionIconName;
     IconPixmapList m_icon, m_overlayIcon, m_attentionIcon;
-    qint64 m_iconCacheKey, m_overlayIconCacheKey, m_attentionIconCacheKey;
 
-    // menu
-    QDBusObjectPath m_menuPath;
     QDBusConnection m_sessionBus;
-
-    static int m_serviceCounter;
-    QString m_Title;
-    QString m_IconName;
-    QString m_OverlayIconName;
-    QString m_AttentionIconName;
 };
 
 #endif

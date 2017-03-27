@@ -1,14 +1,13 @@
 #ifndef STATUSNOTIFIERICON_H
 #define STATUSNOTIFIERICON_H
 
-#include "sniasync.h"
-
 #include <QObject>
 
 #ifndef Q_ENUM
 #define Q_ENUM(x) Q_ENUMS(x)
 #endif
 
+class SniAsync;
 class StatusNotifierIcon : public QObject
 {
     Q_OBJECT
@@ -19,7 +18,7 @@ class StatusNotifierIcon : public QObject
     Q_PROPERTY(QString attentionIcon READ attentionIcon NOTIFY attentionIconChanged)
 
 public:
-    explicit StatusNotifierIcon(const QString &service, const QString &objectPath, QObject *parent = 0);
+    explicit StatusNotifierIcon(const QString &service, const QString &objectPath, QObject *parent = nullptr);
 
     enum Status
     {
