@@ -1,4 +1,5 @@
 #include "statusnotifiericon.h"
+#include "sniasync.h"
 
 #include <QDBusPendingCallWatcher>
 #include <QDBusPendingReply>

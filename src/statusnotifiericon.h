@@ -1,14 +1,13 @@
 #ifndef STATUSNOTIFIERICON_H
 #define STATUSNOTIFIERICON_H
 
-#include "sniasync.h"
-
 #include <QObject>
 
 #ifndef Q_ENUM
 #define Q_ENUM(x) Q_ENUMS(x)
 #endif
 
+class SniAsync;
 class StatusNotifierIcon : public QObject
 {
     Q_OBJECT

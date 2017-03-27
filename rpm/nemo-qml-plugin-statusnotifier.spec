@@ -16,6 +16,14 @@ BuildRequires:  pkgconfig(Qt5DBus)
 %description
 Declarative plugin for StatusNotifier. Contains both Host and Item
 
+%package devel
+Summary:    StatusNotifier C++ library
+Group:      System/Libraries
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+%{summary}.
+
 %prep
 %setup -q -n %{name}-%{version}
 
@@ -36,6 +44,13 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %dir %{_libdir}/qt5/qml/org/nemomobile/statusnotifier
-%{_libdir}/qt5/qml/org/nemomobile/statusnotifier/libstatusnotifier.so
+%{_libdir}/qt5/qml/org/nemomobile/statusnotifier/libnemostatusnotifier.so
+%{_libdir}/libstatusnotifier.so.*
 %{_libdir}/qt5/qml/org/nemomobile/statusnotifier/qmldir
 %{_libdir}/qt5/qml/org/nemomobile/statusnotifier/plugins.qmltypes
+
+%files devel
+%defattr(-,root,root,-)
+%{_libdir}/pkgconfig/statusnotifier.pc
+%{_includedir}/statusnotifier/*
+%{_libdir}/libstatusnotifier.so

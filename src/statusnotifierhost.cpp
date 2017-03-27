@@ -27,8 +27,11 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "statusnotifierhost.h"
+#include "statusnotifierwatcher.h"
+#include "statusnotifiericon.h"
 
 #include <QDebug>
+#include <QCoreApplication>
 
 StatusNotifierHost::StatusNotifierHost(QObject *parent) : QObject(parent)
 {
@@ -47,6 +50,11 @@ StatusNotifierHost::StatusNotifierHost(QObject *parent) : QObject(parent)
     qDebug() << m_watcher->RegisteredStatusNotifierItems();
 }
 
+QHash<QString, StatusNotifierIcon *> StatusNotifierHost::icons() const
+{
+    return m_icons;
+}
+
 void StatusNotifierHost::onItemAdded(const QString &serviceAndPath)
 {
     int slash = serviceAndPath.indexOf(QLatin1Char('/'));
@@ -55,21 +63,21 @@ void StatusNotifierHost::onItemAdded(const QString &serviceAndPath)
 
     qDebug() << serv << path;
     StatusNotifierIcon *icon = new StatusNotifierIcon(serv, path, this);
-    m_services.insert(serviceAndPath, icon);
+    m_icons.insert(serviceAndPath, icon);
 
-    emit itemAdded(icon);
+    emit iconAdded(icon);
 }
 
 void StatusNotifierHost::onItemRemoved(const QString &serviceAndPath)
 {
     qDebug() << serviceAndPath;
 
-    if (!m_services.contains(serviceAndPath)) {
+    if (!m_icons.contains(serviceAndPath)) {
         return;
     }
 
-    StatusNotifierIcon *icon = m_services.take(serviceAndPath);
+    StatusNotifierIcon *icon = m_icons.take(serviceAndPath);
     icon->deleteLater();
 
-    emit itemRemoved(icon);
+    emit iconRemoved(icon);
 }

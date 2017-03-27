@@ -2,7 +2,7 @@
 
 DeclarativeStatusNotifierItem::DeclarativeStatusNotifierItem(QObject *parent)
     : QObject(parent)
-    , m_item(new StatusNotifierItem(this))
+    , m_item(new StatusNotifierItem(QStringLiteral("ApplicationStatus"), false, QStringLiteral("/MenuNotImplemented"), this))
 {
     connect(m_item, &StatusNotifierItem::activateRequested, this, &DeclarativeStatusNotifierItem::activateRequested);
     connect(m_item, &StatusNotifierItem::secondaryActivateRequested, this, &DeclarativeStatusNotifierItem::secondaryActivateRequested);
