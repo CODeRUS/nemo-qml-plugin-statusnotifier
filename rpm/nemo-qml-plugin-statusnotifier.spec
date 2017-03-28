@@ -1,8 +1,8 @@
 %{!?qtc_qmake5:%define qtc_qmake5 %qmake5}
 %{!?qtc_make:%define qtc_make make}
 
-Name:       nemo-qml-plugin-statusnotifier
-Summary:    Declarative plugin for StatusNotifier
+Name:       libstatusnotifier
+Summary:    StatusNotifier C++ library
 Version:    1.0.0
 Release:    1
 Group:      System/Libraries
@@ -12,8 +12,17 @@ Source0:    %{name}-%{version}.tar.bz2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Gui)
 
 %description
+%{summary}.
+
+%package -n nemo-qml-plugin-statusnotifier
+Summary:    Declarative plugin for StatusNotifier
+Group:      System/Libraries
+Requires:   %{name} = %{version}-%{release}
+
+%description -n nemo-qml-plugin-statusnotifier
 Declarative plugin for StatusNotifier. Contains both Host and Item
 
 %package devel
@@ -43,9 +52,12 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
+%{_libdir}/libstatusnotifier.so.*
+
+%files -n nemo-qml-plugin-statusnotifier
+%defattr(-,root,root,-)
 %dir %{_libdir}/qt5/qml/org/nemomobile/statusnotifier
 %{_libdir}/qt5/qml/org/nemomobile/statusnotifier/libnemostatusnotifier.so
-%{_libdir}/libstatusnotifier.so.*
 %{_libdir}/qt5/qml/org/nemomobile/statusnotifier/qmldir
 %{_libdir}/qt5/qml/org/nemomobile/statusnotifier/plugins.qmltypes
 

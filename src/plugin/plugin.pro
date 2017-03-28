@@ -3,8 +3,7 @@ PLUGIN_IMPORT_PATH = org/nemomobile/statusnotifier
 
 TEMPLATE = lib
 CONFIG += qt plugin c++11
-
-QT += qml dbus network gui
+QT += qml dbus gui
 
 target.path = $$[QT_INSTALL_QML]/$$PLUGIN_IMPORT_PATH
 INSTALLS += target
