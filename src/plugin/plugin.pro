@@ -2,7 +2,7 @@ TARGET = nemostatusnotifier
 PLUGIN_IMPORT_PATH = org/nemomobile/statusnotifier
 
 TEMPLATE = lib
-CONFIG += qt plugin c++11 hide_symbols
+CONFIG += qt plugin c++11
 
 QT += qml dbus network gui
 

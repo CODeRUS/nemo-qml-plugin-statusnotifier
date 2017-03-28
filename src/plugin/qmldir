@@ -1,2 +1,2 @@
 module org.nemomobile.statusnotifier
-plugin statusnotifier
+plugin nemostatusnotifier

@@ -4,7 +4,7 @@ TARGET = statusnotifier
 CONFIG += qt create_pc create_prl no_install_prl c++11
 QT += qml dbus gui
 
-CONFIG += c++11 hide_symbols
+CONFIG += c++11
 
 system(qdbusxml2cpp -c StatusNotifierItemInterface -p statusnotifieriteminterface -i dbustypes.h ../dbus/org.kde.StatusNotifierItem.xml)
 system(qdbusxml2cpp ../dbus/org.kde.StatusNotifierItem.xml -i statusnotifieritem.h -a statusnotifieritemadaptor)
